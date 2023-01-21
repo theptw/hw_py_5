@@ -189,11 +189,6 @@ def bot(list, turn_count, corners):
             if type(poles[j][i]) == int:
                 return poles[j][i]
             
-                
-    
-
-
-
 which_turn = 0
 for j in range(9):
     if which_turn % 2 == 1:
@@ -224,7 +219,6 @@ for j in range(9):
     pole_print(pole1, pole2, pole3)
     print('_________')
     
-
     if win_condition_x(pole1,pole2,pole3) == True:
         print('Крестики выиграли!')
         break
@@ -234,7 +228,7 @@ for j in range(9):
     elif which_turn == 8:
         print('Ничья!')
         break  
-
+    
     which_turn += 1
     
 
