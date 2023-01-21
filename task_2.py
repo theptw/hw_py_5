@@ -2,12 +2,10 @@
 # НЕОБЯЗАТЕЛЬНО Добавить игру против бота с интеллектом
 from random import randint
 
-pole = [1,2,3,4,5,6,7,8,9]
 pole1 = [1,2,3]
 pole2 = [4,5,6]
 pole3 = [7,8,9]
 poles = [pole1,pole2,pole3]
-print(poles)
 corners = [1,3,7,9]
 
 def pole_print(list1, list2, list3):
@@ -25,7 +23,7 @@ def pole_print(list1, list2, list3):
 
 pole_print(pole1, pole2, pole3)
 
-def win_condition_x(list1, list2, list3):
+def win_condition_x(list1, list2, list3): # выиграли ли крестики
     if list1[0] == 'X' and list2[1] == 'X' and list3[2] == 'X':
         return True
     elif list1[1] == 'X' and list2[1] == 'X' and list3[1] == 'X':
@@ -47,7 +45,7 @@ def win_condition_x(list1, list2, list3):
     else:
         return False
 
-def win_condition_o(list1, list2, list3):
+def win_condition_o(list1, list2, list3): # выиграли ли нолики
     if list1[0] == 'O' and list2[1] == 'O' and list3[2] == 'O':
         return True
     elif list1[1] == 'O' and list2[1] == 'O' and list3[1] == 'O':
@@ -182,10 +180,16 @@ def bot(list, turn_count, corners):
 
     # если след. ходом нельзя выиграть или не дать выиграть оппоненту:
     for j in range(3):
-        if poles[j].count('O') == 1 and poles[j].count('X') == 0:
+        if poles[j].count('O') == 1 and poles[j].count('X') == 0: # приоритет на линии без крестиков
             for i in range(3):
                 if poles[j][i] != 'O':
                     return poles[j][i]
+    for j in range(3): #если нет - любой ход(ничья)
+        for i in range(3):
+            if type(poles[j][i]) == int:
+                return poles[j][i]
+            
+                
     
 
 
@@ -194,6 +198,7 @@ which_turn = 0
 for j in range(9):
     if which_turn % 2 == 1:
         turn = bot(poles, which_turn, corners)
+        print('Бот сходил, поле выглядит так: ')
     else:
         turn = int(input('Ходят крестики, введите номер клетки: '))
     check_if_busy(pole1,pole2,pole3,turn)
@@ -218,6 +223,7 @@ for j in range(9):
 
     pole_print(pole1, pole2, pole3)
     print('_________')
+    
 
     if win_condition_x(pole1,pole2,pole3) == True:
         print('Крестики выиграли!')
