@@ -9,36 +9,34 @@
 from random import randint
 
 total_sweets = int(input('Введите количество конфет: '))
-names = []
-
-for i in range(2):
-    names.append(input(f'Введите имя {i+1}-го игрока: '))
 
 turn = randint(0,1)
-print(f"По результатам жеребьёвки ходит {names[turn]}")
-
+if turn == 0:
+    print("По результатам жеребьёвки ходите Вы")
+else:
+    print('По результатам жеребьёвки ходит Бот')
 take = 0
 while total_sweets > 0:
     if turn == 0:
-        take = int(input(f'Ходит {names[turn]}, сколько конфет Вы возьмёте?'))
-        if take > 28:
-            take = int(input('Нельзя брать больше 28 конфет, введите другое число: '))
+        take = int(input(f'Вы ходите, сколько конфет возьмёте?'))
+        if take > 28 or take <= 0:
+            take = int(input('Нельзя не брать конфеты или брать больше 28, введите другое число: '))
         total_sweets -= take
         print(f'Осталось {total_sweets} конфет')
         turn = 1
     if total_sweets > 0 and turn == 1:
-        take = int(input(f'Ходит {names[turn]}, сколько конфет Вы возьмёте?'))
-        if take > 28:
-            take = int(input('Нельзя брать больше 28 конфет, введите другое число: '))
+        take = total_sweets % 29
+        if take == 0:
+            take = 1
         total_sweets -= take
-        print(f'Осталось {total_sweets} конфет')
+        print(f'Bot взял {take} конфет, осталось {total_sweets}')
         turn = 0
 
 if turn == 0:
-    turn = 1
+    print('Вы проиграли :( ')
 if turn == 1:
-    turn = 0
-print(f'{names[turn]} выйграл!')
+    print('Вы выйграли!')
+
 
 
     
